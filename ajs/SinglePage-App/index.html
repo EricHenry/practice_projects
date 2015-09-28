@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!-- ng-app="myApp" connects everything underneath of the current element it is in
+        (in this case the html element) to the variable myApp defined in app.js
+    Now app.js has this DOM as its view --> 
+<html lang="en_us" ng-app="myApp">
+    <head>
+        <title>Learn and Understand AngularJS</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="utf-8">
+        
+        <!-- load bootstrap and font awesome via CDN -->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        
+        <style>
+            html, body, input, select, textarea
+            {
+                font-size: 1.05em;
+            }
+        </style>
+        
+        <!-- load angular via CDN -->
+        <script src="https://code.angularjs.org/1.4.3/angular.min.js"></script> 
+        <!-- Messages allows you to automatically verify forms-->
+        <script src="https://code.angularjs.org/1.4.3/angular-messages.min.js"></script>
+        <!-- module that provides a really fast way of grabbing data from the internet -->
+        <script src="https://code.angularjs.org/1.4.3/angular-resource.min.js"></script>
+        <!-- The ng-Route module helps route the value of a hash to a particular set of code-->
+        <script src="https://code.angularjs.org/1.4.3/angular-route.min.js"></script>
+        <script src="js/app.js"></script>
+        <script src="js/controllers/MainController.js"></script>
+        <script src="js/controllers/secondController.js"></script>
+    </head>
+    <body>
+        
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">AngularJS</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="#/second">Second</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+        
+        <div class="container">
+        
+            <!-- define a view for your controller to manipulate -->
+            <div ng-view>
+                
+                
+                
+            </div>
+        
+        </div>
+        
+    </body>
+</html>
