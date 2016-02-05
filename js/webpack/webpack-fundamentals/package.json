@@ -1,0 +1,11 @@
+{
+  "name": "webpack-fundamentals",
+  "version": "1.0.0",
+  "description": "Follows the Webpack Fundamentals course on Pluralsight.com",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
