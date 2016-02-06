@@ -23,7 +23,7 @@ describe("Scope", function describeScope(){
             scope = new Scope();
         });
 
-        // in this test we invoke $watch to register a watcher on the scope. Not interested in the 
+        // in this test we invoke $watch to register a watcher on the scope. Not interested in the
         //  watch function just yet, so just return a constant value
         //
         // a watcher is something that is notified when a change occurs on the scope.
@@ -68,13 +68,46 @@ describe("Scope", function describeScope(){
             scope.$digest();
             expect(scope.counter).toBe(1);
 
-            scope.someValue = 'b';
+            scope.someValue = "b";
             expect(scope.counter).toBe(1);
 
             scope.$digest();
             expect(scope.counter).toBe(2);
 
+        });
 
+        it("calls listener when watch value is first undefined", function firstUndefined(){
+            scope.counter = 0;
+
+            scope.$watch(
+                function(scope) { return scope.someValue },
+                function(newValue, oldValue, scope) { scope.counter++; }
+            );
+
+            scope.$digest();
+            expect(scope.counter).toBe(1);
+        });
+
+        it("calls listener with new value as old value the first time", function firstTime(){
+            scope.someValue = 123;
+            var oldValueGiven;
+
+            scope.$watch(
+                function(scope) { return scope.someValue },
+                function(newValue, oldValue, scope) { oldValueGiven = oldValue }
+            );
+
+            scope.$digest();
+            expect(oldValueGiven).toBe(123);
+        });
+
+        it("may have watchers that omit the listener function", function omitListen(){
+            var watchFn = jasmine.createSpy().and.returnValue("something");
+            scope.$watch(watchFn);
+
+            scope.$digest();
+
+            expect(watchFn).toHaveBeenCalled();
         });
 
     });
