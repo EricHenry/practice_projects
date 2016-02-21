@@ -1,4 +1,4 @@
-function deepEqual(obj1, obj2) {
+function deepEqual(x, y) {
 
     // var bothAreNotNull = (obj1 !== null && obj2 !== null);
     // var bothAreObjects = (typeof obj1 === "object" && typeof obj2 === "object");
@@ -13,8 +13,31 @@ function deepEqual(obj1, obj2) {
     // }
     //
     // return true;
+    // debugger;
 
-    
+    if (x === y) {
+        return true;
+    }
+
+    if (x == null || typeof x != "object" || y == null || typeof y != "object" ) {
+        return false;
+    }
+
+    var propsInX = 0,
+        propsInY = 0;
+
+    for (var prop in x) {
+        propsInX += 1;
+    }
+
+    for (var prop in y){
+        propsInY += 1;
+        if (!(prop in x) || !deepEqual(x[prop], y[prop])) {
+            return false;
+        }
+    }
+
+    return propsInX == propsInY;
 }
 
 
