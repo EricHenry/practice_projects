@@ -1,4 +1,4 @@
-var ancestry = require("./ancestry.js");
+var ancestry = JSON.parse(require("./data/ancestry.js"));
 
 function average(array) {
     function plus(x, y) {
@@ -15,8 +15,7 @@ ancestry.forEach(function(person) {
 
 // computer the average age difference
 function dataHasMother(person) {
-    var mothersName = person.mother;
-    return (typeof byName[mothersName] !== "undefined");
+    return (typeof byName[person.mother] !== "undefined");
 }
 function ageDifference(child) {
     return child.born - byName[child.mother].born;
