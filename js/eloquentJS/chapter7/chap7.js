@@ -108,6 +108,26 @@ World.prototype.turn =  function () {
     }, this);
 }
 
+World.prototype.letAct = function(critter, vector) {
+    var action = critter.act(new View(this, vector));
+    if (action && action.type === "move") {
+        let dest = this.checkDestination(action, vector);
+        if (dest && this.grid.get(dest) === null) {
+            this.grid.set(vector, null);
+            this.grid.set(dest, critter);
+        }
+    }
+};
+
+World.prototype.checkDestination = function(action, vector) {
+    if (direction.hasOwnProperty(action.direction)) {
+        let dest = vector.plus(directions[action.direction]);
+        if (this.grid.isInside(dest)) {
+            return dest;
+        }
+    }
+}
+
 function elementFromChar(legend, ch) {
     if (ch === null) {
         return null;
@@ -126,3 +146,17 @@ function charFromElement(element) {
 }
 
 function Wall() {}
+
+function View(world, vector) {
+    this.world = world;
+    this.vector = vector;
+}
+
+View.prototype.look = function(dir) {
+    var target = this.vector.plus(directions[dir]);
+    if (this.world.grid.isInside(target)) {
+        return charFromElement(this.world.grid.get(target));
+    } else {
+        return "#"   
+    }    
+};
