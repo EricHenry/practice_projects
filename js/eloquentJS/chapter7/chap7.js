@@ -157,6 +157,10 @@ View.prototype.look = function(dir) {
     if (this.world.grid.isInside(target)) {
         return charFromElement(this.world.grid.get(target));
     } else {
-        return "#"   
+        return "#"; 
     }    
 };
+
+View.prototype.findAll = function findAll(dir) {
+    
+}
