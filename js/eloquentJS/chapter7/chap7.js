@@ -218,5 +218,29 @@ LifeLikeWorld.prototype = Object.create(World.prototype);
 var actionTypes = Object.create(null);
 
 LifeLikeWorld.prototype.letAct = function letAct(critter, vector) {
+    var action = critter.act(new View(this, vector));
+    var handled = action && action.type in actionTypes && actionTypes[action.type].call(this, critter, vector, action);
 
+    if (!handled) {
+        critter.energy -= 0.2;
+        if (critter.energy <= 0) {
+            this.grid.set(vector, nill);
+        }
+    }
 };
+
+actionTypes.grow = function(critter) {
+    critter.energy += 0.5;
+    return true;
+}
+
+actionTypes.move = function(critter, vector, action) {
+    var dest = this.checkDestination(action, vector);
+    if (dest === null || critter.energy <= 1 || this.grid.get(dest) != null) {
+        return false;
+    }
+    critter.energy -= 1;
+    this.grid.set(vector, null);
+    this.grid.set(dest, critter);
+    return true;
+}
