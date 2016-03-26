@@ -1,0 +1,59 @@
+body {
+  font-family: Tahoma, sans-serif;
+  margin: 0;
+}
+
+html, body {
+    height: 100%
+}
+
+#app {
+    display: flex;
+    height: 100%;
+}
+
+@media (max-width : 965px) {
+  .Sidenav {
+    display: none !important;
+  }
+}
+
+.Sidenav {
+    display: flex;
+    flex: 1 1 15%;
+    flex-flow: column;
+    max-width: 15%;
+    box-sizing: border-box;
+    background-color: #3F1C3E;
+    align-items: center;
+}
+
+.Sidenav-title {
+    color: white;
+}
+
+.Header {
+    padding-left: 10px;
+    background-color: #f6f6f6;
+}
+
+.Header-title {
+    color: #3F1C3E;
+}
+
+.Main {
+    display: flex;
+    justify-content: center;
+}
+
+.layout-row {
+    display: flex;
+    flex:1 1;
+    flex-flow: row;
+}
+
+.layout-column {
+    display: flex;
+    flex: 1 1;
+    flex-flow: column;
+}
