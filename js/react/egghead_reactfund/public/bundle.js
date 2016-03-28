@@ -24415,8 +24415,9 @@
 	            repos: ["a", "b", "c"]
 	        };
 	    },
-	    //lifecycle event *componentdidmount* is called right after your component mounts the view
+
 	    componentDidMount: function componentDidMount() {
+	        //lifecycle event *componentdidmount* is called right after your component mounts the view
 	        this.ref = new FireBase("https://github-note-taker.firebaseio.com/");
 	        console.log(this.ref);
 
@@ -24426,10 +24427,17 @@
 	        //binding the childRef to notes
 	        this.bindAsArray(childRef, 'notes');
 	    },
-	    //lifecycle event whenever this component unmounts, do some stuff.
+
 	    componentWillUnmount: function componentWillUnmount() {
+	        //lifecycle event whenever this component unmounts, do some stuff.
 	        this.unbind('notes');
 	    },
+
+	    handleAddNote: function handleAddNote(newNote) {
+	        //update firebase with newNote
+	        this.ref.child(this.props.params.username).child(this.state.notes.length).set(newNote);
+	    },
+
 	    render: function render() {
 	        console.log(this);
 	        console.log(this.props);
@@ -24449,7 +24457,7 @@
 	            React.createElement(
 	                "div",
 	                { className: "col-md-4" },
-	                React.createElement(Notes, { username: this.props.params.username, notes: this.state.notes })
+	                React.createElement(Notes, { username: this.props.params.username, notes: this.state.notes, addNote: this.handleAddNote })
 	            )
 	        );
 	    }
@@ -24544,13 +24552,15 @@
 
 	var React = __webpack_require__(1);
 	var NotesList = __webpack_require__(217);
+	var AddNote = __webpack_require__(218);
 
 	var Notes = React.createClass({
 	    displayName: "Notes",
 
 	    propTypes: {
 	        username: React.PropTypes.string.isRequired,
-	        notes: React.PropTypes.array.isRequired
+	        notes: React.PropTypes.array.isRequired,
+	        addNote: React.PropTypes.func.isRequired
 	    },
 	    render: function render() {
 	        console.log("Notes: ", this.props.notes);
@@ -24563,6 +24573,7 @@
 	                "Notes for ",
 	                this.props.username
 	            ),
+	            React.createElement(AddNote, { username: this.props.username, addNote: this.props.addNote }),
 	            React.createElement(NotesList, { notes: this.props.notes })
 	        );
 	    }
@@ -25254,6 +25265,50 @@
 	});
 
 	module.exports = NotesList;
+
+/***/ },
+/* 218 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	var React = __webpack_require__(1);
+
+	var AddNote = React.createClass({
+	    displayName: "AddNote",
+
+	    propTypes: {
+	        username: React.PropTypes.string.isRequired,
+	        addNote: React.PropTypes.func.isRequired
+	    },
+	    setRef: function setRef(ref) {
+	        this.note = ref;
+	    },
+	    handleSubmit: function handleSubmit() {
+	        console.log("button pressed!");
+	        var newNote = this.note.value;
+	        this.note.value = "";
+	        this.props.addNote(newNote);
+	    },
+	    render: function render() {
+	        return React.createElement(
+	            "div",
+	            { className: "input-group" },
+	            React.createElement("input", { type: "text", className: "form-control", placeholder: "Add New Note", ref: this.setRef }),
+	            React.createElement(
+	                "span",
+	                { className: "input-group-btn" },
+	                React.createElement(
+	                    "button",
+	                    { className: "btn btn-default", type: "button", onClick: this.handleSubmit },
+	                    "Submit"
+	                )
+	            )
+	        );
+	    }
+	});
+
+	module.exports = AddNote;
 
 /***/ }
 /******/ ]);
