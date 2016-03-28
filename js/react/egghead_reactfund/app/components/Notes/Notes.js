@@ -2,6 +2,10 @@ const React = require("react");
 const NotesList = require("./NotesList");
 
 const Notes = React.createClass({
+    propTypes: {
+        username: React.PropTypes.string.isRequired,
+        notes: React.PropTypes.array.isRequired
+    },
     render: function() {
         console.log("Notes: ", this.props.notes );
         return (
