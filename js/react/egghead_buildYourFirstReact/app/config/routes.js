@@ -1,10 +1,10 @@
-const React = require("react");
-const Main = require('../components/Main');
-const Home = require('../components/Home');
-const Profile = require("../components/Profile");
-const { Route, IndexRoute } = require('react-router');
+import React from "react";
+import Main from "../components/Main";
+import Home from "../components/Home";
+import Profile from "../components/Profile";
+import { Route, IndexRoute } from "react-router";
 
-module.exports = (
+export default (
     <Route path="/" component={Main}>
         <Route path="profile/:username" component={Profile}> </Route>
         <IndexRoute component={Home} />
