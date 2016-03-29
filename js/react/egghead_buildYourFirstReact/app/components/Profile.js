@@ -53,7 +53,6 @@ class Profile extends React.Component {
 
         getGithubInfo(username)
             .then(function(data) {
-                console.log(`GITHUB: `, data);
                 this.setState({
                     bio: data.bio,
                     repos: data.repos
@@ -62,8 +61,7 @@ class Profile extends React.Component {
     }
 
     render() {
-        console.log(this);
-        console.log(this.props);
+        console.log(`Profile 'this': `, this);
         return (
             <div className="row">
                 <div className="col-md-4">
