@@ -19,9 +19,6 @@ export default function getGithubInfo(username) {
             {
                 repos: arr[0].data,
                 bio: arr[1].data
-            };
+            }
         ));
 }
-
-
-export default helpers;
