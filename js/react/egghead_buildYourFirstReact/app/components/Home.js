@@ -1,11 +1,13 @@
-const React = require("react");
+import React from "react";
 
-const Home = React.createClass({
-    render: () => (
-        <h2 className="text-center">
-            Search by Github Username Above
-        </h2>
-    )
-});
+class Home extends React.Component {
+    render() {
+        return (
+            <h2 className="text-center">
+                Search by Github Username Above
+            </h2>
+        )
+    }
+}
 
-module.exports = Home;
+export default Home;
