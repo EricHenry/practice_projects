@@ -12,9 +12,7 @@ const Profile = React.createClass({
     getInitialState: function() {
         return {
             notes: [],
-            bio: {
-                name: ""
-            },
+            bio: {},
             repos: []
         };
     },
@@ -30,13 +28,14 @@ const Profile = React.createClass({
         //binding the childRef to notes
         this.bindAsArray(childRef, 'notes');
 
-        helpers.getGithubInfo(this.props.params.usernames)
-            .then((data) => {
+        helpers.getGithubInfo(this.props.params.username)
+            .then(function(data) {
+                console.log(`GITHUB: `, data);
                 this.setState({
                     bio: data.bio,
                     repos: data.repos
                 });
-            })
+            }.bind(this))
     },
 
     componentWillUnmount: function(){

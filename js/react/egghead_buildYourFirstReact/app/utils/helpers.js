@@ -12,6 +12,7 @@ function getUserInfo(username) {
 var helpers = {
     //used to make sure both getRepos and getUserInfo have retrned data before giving it out
     getGithubInfo: function(username) {
+        console.log(`Username: `, username);
         //axios.all() waits for all the promises in the array to be resolved before running the function in .then();
         return axios.all([getRepos(username), getUserInfo(username)])
             .then(function(arr){
