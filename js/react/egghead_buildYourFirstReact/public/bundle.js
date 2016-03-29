@@ -24392,7 +24392,7 @@
 	    handleSubmit: function handleSubmit() {
 	        var username = this.usernameRef.value;
 	        this.usernameRef.value = "";
-	        this.history.pushState(null, "profile/" + username);
+	        this.history.pushState(null, "/profile/" + username);
 	    },
 
 	    render: function render() {
@@ -24476,20 +24476,14 @@
 	        //lifecycle event *componentdidmount* is called right after your component mounts the view
 	        this.ref = new FireBase("https://github-note-taker.firebaseio.com/");
 	        console.log(this.ref);
+	        this.init(this.props.params.username);
+	    },
 
-	        //child() -> firebase method that gets the child of this.ref which would be the "eric" if this was the ref https://github-note-taker.firebaseio.com/eric ->
-	        var childRef = this.ref.child(this.props.params.username);
-
-	        //binding the childRef to notes
-	        this.bindAsArray(childRef, 'notes');
-
-	        helpers.getGithubInfo(this.props.params.username).then(function (data) {
-	            console.log("GITHUB: ", data);
-	            this.setState({
-	                bio: data.bio,
-	                repos: data.repos
-	            });
-	        }.bind(this));
+	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
+	        // lifecycle method to handle a compononet receiving new props when already rendered
+	        console.log("the next props are ", nextProps);
+	        this.unbind('notes');
+	        this.init(nextProps.params.username);
 	    },
 
 	    componentWillUnmount: function componentWillUnmount() {
@@ -24500,6 +24494,22 @@
 	    handleAddNote: function handleAddNote(newNote) {
 	        //update firebase with newNote
 	        this.ref.child(this.props.params.username).child(this.state.notes.length).set(newNote);
+	    },
+
+	    init: function init(username) {
+	        //child() -> firebase method that gets the child of this.ref which would be the "eric" if this was the ref https://github-note-taker.firebaseio.com/eric ->
+	        var childRef = this.ref.child(username);
+
+	        //binding the childRef to notes
+	        this.bindAsArray(childRef, 'notes');
+
+	        helpers.getGithubInfo(username).then(function (data) {
+	            console.log("GITHUB: ", data);
+	            this.setState({
+	                bio: data.bio,
+	                repos: data.repos
+	            });
+	        }.bind(this));
 	    },
 
 	    render: function render() {
