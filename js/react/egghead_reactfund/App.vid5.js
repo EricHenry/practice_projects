@@ -2,8 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 
 /**
- * When one compoenent renders another component its called the owner / ownee relationship
- *  The parent component is called a composite component
+ * Must return one node from render.
  */
 class App extends React.Component {
     //constructor gives us our context for this within our component
@@ -14,9 +13,6 @@ class App extends React.Component {
             txt: "this is the state text"
         };
         console.log(`this value after state`, this);
-
-        // shortcut to force this.update to always have this "this" in its execution context
-        this.update = this.update.bind(this);
     }
 
     /**
@@ -27,29 +23,36 @@ class App extends React.Component {
         this.setState({txt: e.target.value})
     }
 
-    /**
-     * Must return one node from render().
-     */
     render() {
         return (
             <div>
-                <Widget txt={this.state.txt} update={this.update} />
+                <h1>Hello World</h1>
+                <b> {this.state.txt} </b>
+                <input type="text" onChange={this.update.bind(this)} />
             </div>
         )
     }
 }
 
+// App.propTypes = {
+//     txt: React.PropTypes.string,
+//     cat: React.PropTypes.number.isRequired
+// }
+
 /**
- * Stateless Component
- * This will update the state.txt value of the parent component
+ * Default property values
  */
-const Widget = (props) => {
-    return (
-        <div>
-            <input type="text" onChange={props.update} />
-            <h1>{props.txt} </h1>
-        </div>
-    )
-}
+// App.defaultProps = {
+//     txt: "this is the default text"
+// }
+
+/**
+ * How To build Stateless components that just render onto the screen
+ */
+// const App = () => (
+//     <h1> Hello Dummies!</h1>
+// );
 
 export default App;
+
+// ReactDOM.render(<App cat={5} txt="this is the props text" />, document.getElementById("app"));
