@@ -1,64 +1,91 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-let Mixin = (InnerComponent) => class extends React.Component {
-    constructor() {
-        super();
-        this.update = this.update.bind(this);
-        this.state =  { val: 0 };
-    }
-    update() {
-        this.setState({val: this.state.val + 1});
-    }
-
-    componentWillMount(){
-        console.log("will mount");
-    }
-
-    render() {
-        return (
-            <InnerComponent update={this.update} {...this.state} {...this.props} />
-        )
-    }
-
-    componentDidMount() {
-        console.log("mounted");
-    }
-}
-
-const Button = (props, ...a) => {
-    console.log(props);
-    console.log(a);
-    return (
-        <button onClick={props.update}> {props.txt} - {props.val} </button>
-    );
-}
-const Label = (props) => <label onMouseMove={props.update}> {props.txt} - {props.val} </label>
-
-let ButtonMixed = Mixin(Button);
-let LabelMixed = Mixin(Label);
-
 /**
- * Higher Order Components
+ *
  */
 class App extends React.Component {
+    //constructor gives us our context for this within our component
+    constructor(){
+        super();
+        console.log(`this value after super call`, this);
+        this.state = {
+            red: 0
+        };
+        console.log(`this value after state`, this);
 
-
-    render() {
-        console.log('rendering!');
-        console.log('rendering -> state change', this.state);
-        return (
-            <div>
-                <ButtonMixed txt="Button" />
-                <LabelMixed txt="Label" />
-            </div>
-        );
+        // shortcut to force this.update to always have this "this" in its execution context
+        this.update = this.update.bind(this);
     }
 
+    /**
+     * Custom Method that takes an event object
+     */
+    update(e) {
+        // setState() is part of ReactComponent API
+        this.setState({
+            red: ReactDOM.findDOMNode(this.refs.red.refs.inp).value
+        })
+    }
 
-
+    /**
+     * Must return one node from render().
+     */
+    render() {
+        return (
+            <div>
+                <NumInput
+                    ref="red"
+                    min={0}
+                    max={255}
+                    step={1}
+                    val={+this.state.red}
+                    label="Red"
+                    update={this.update} />
+                {this.state.red}
+            </div>
+        )
+    }
 }
 
-App.defaultProps = { txt: "Button" };
+class NumInput extends React.Component {
+    render() {
+        let label = this.props.label !== `` ?
+            <label>{this.props.label} - {this.props.val}</label> : ``;
+        return (
+            <div>
+                <input ref="inp"
+                    type={this.props.type}
+                    min={this.props.min}
+                    max={this.props.max}
+                    step={this.props.step}
+                    defaultValue={this.props.val}
+                    onChange={this.props.update} />
+                {label}
+            </div>
+        )
+    }
+}
+
+const { number, string, func, oneOf } = React.PropTypes;
+
+NumInput.propTypes ={
+    min: number,
+    max: number,
+    step: number,
+    val: number,
+    label: string,
+    update: func.isRequired,
+    type: oneOf(["number", "range"])
+};
+
+NumInput.defaultProps = {
+    min: 0,
+    max: 0,
+    step: 1,
+    val: 0,
+    label: ``,
+    type: `range`
+}
 
 export default App;
