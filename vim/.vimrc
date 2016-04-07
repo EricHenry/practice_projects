@@ -69,6 +69,7 @@ Plugin 'scrooloose/syntastic'
 Bundle 'matze/vim-move'
 Plugin 'othree/html5.vim'
 Plugin 'othree/html5-syntax.vim'
+Plugin 'duggiefresh/vim-easydir'
 
 "ColorSchemes
 Plugin 'crusoexia/vim-monokai'
