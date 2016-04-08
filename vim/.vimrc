@@ -8,6 +8,7 @@ set term=screen-256color
 "solarized
 syntax enable
 colorscheme monokai
+"colorscheme github
 
 "set number by default
 set number
@@ -32,6 +33,8 @@ let g:syntastic_javascript_checkers = ['eslint']
 "vim-move customization
 let g:move_key_modifier = 'C'
 """""""""""""""""""""""""""""""
+
+nnoremap <Leader>w <C-w>
 
 "map :w to ctrl-s
 "noremap <silent> <C-S>          :update<CR>
@@ -74,6 +77,7 @@ Plugin 'duggiefresh/vim-easydir'
 "ColorSchemes
 Plugin 'crusoexia/vim-monokai'
 Plugin 'trusktr/seti.vim'
+Bundle 'croaky/vim-colors-github'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
