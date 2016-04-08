@@ -33,7 +33,7 @@ let g:syntastic_javascript_checkers = ['eslint']
 "vim-move customization
 let g:move_key_modifier = 'C'
 """""""""""""""""""""""""""""""
-
+autocmd FileType c,cpp,java,php,javascript,html,css autocmd BufWritePre <buffer> :%s/\s\+$//e
 nnoremap <Leader>w <C-w>
 
 "map :w to ctrl-s
