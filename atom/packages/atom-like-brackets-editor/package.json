@@ -1,0 +1,40 @@
+{
+  "name": "atom-like-brackets-editor",
+  "main": "./lib/atom-like-brackets-editor",
+  "version": "1.1.4",
+  "description": "Making atom look like brackets editor",
+  "keywords": [],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augustovictor/atom-like-brackets-editor.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {},
+  "readme": "# atom-like-brackets-editor\n### Make atom look like brackets editor\n\n - [x] Matching brackets like brackets editor;\n - [x] Highlight current line;\n - [x] Pointer cursor on tree-view file hover;\n\n![It really works](http://i.giphy.com/l2R03kPcara9h9yfK.gif)\n",
+  "readmeFilename": "README.md",
+  "bugs": {
+    "url": "https://github.com/augustovictor/atom-like-brackets-editor/issues"
+  },
+  "homepage": "https://github.com/augustovictor/atom-like-brackets-editor#readme",
+  "_id": "atom-like-brackets-editor@1.1.4",
+  "_shasum": "c999aba8c4c1a23200d09a84d99fa18aab001bcc",
+  "_resolved": "file:../d-116310-59652-1ggelo0/package.tgz",
+  "_from": "../d-116310-59652-1ggelo0/package.tgz",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [],
+    "extensions": {
+      ".coffee": [
+        "lib/atom-like-brackets-editor-view.coffee",
+        "lib/atom-like-brackets-editor.coffee"
+      ],
+      ".json": [
+        "package.json"
+      ]
+    },
+    "folders": []
+  }
+}
