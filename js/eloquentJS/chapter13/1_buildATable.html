@@ -1,0 +1,49 @@
+<!doctype html>
+<script src="code/mountains.js"></script>
+<script src="code/13_dom.js"></script>
+
+<style>
+  /* Defines a cleaner look for tables */
+  table  { border-collapse: collapse; }
+  td, th { border: 1px solid black; padding: 3px 8px; }
+  th     { text-align: left; }
+</style>
+
+<script type="">
+  function buildTable(data) {
+    // Your code here.
+    var fields = Object.keys(data[0]); // the keys of the object will be the headers of the table
+
+    var table = document.createElement('table');
+
+    // create header row and add it to the table
+    var tableHeaderRow = document.createElement('tr');
+
+    fields.forEach(function(field){
+        var headerNode = document.createElement('th');
+        headerNode.textContent = field;
+        tableHeaderRow.appendChild(headerNode);
+      });
+
+    table.appendChild(tableHeaderRow)
+
+    //create each row with data from data
+    data.forEach(function(dataEntry) {
+      var tableRow = document.createElement('tr');
+
+      fields.forEach(function(field) {
+          var cellEntry = document.createElement('td');
+          cellEntry.textContent = dataEntry[field];
+
+          tableRow.appendChild(cellEntry);
+      });
+
+      table.appendChild(tableRow);
+
+    });
+
+    return table;
+  }
+
+  document.body.appendChild(buildTable(MOUNTAINS));
+</script>
