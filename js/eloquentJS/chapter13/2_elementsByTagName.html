@@ -9,22 +9,35 @@
 <script>
   function byTagName(node, tagName) {
     // Your code here.
-    var tags = [];
+  //   var tags = [];
+   //
+  //  for (var i = 0; i < node.childNodes.length; i++) {
+  //    console.log(node, node.childNodes[i]);
+  //    var currentNodeName = node.childNodes[i].tagName.toLowerCase();
+   //
+  //    if (currentNodeName === tagName) {
+  //      tags.push(node.childNodes[i]);
+  //    }
+        
+  //  }
+   //
+  //  return tags;
+  var found = [];
+    tagName = tagName.toUpperCase();
 
-   for (var i = 0; i < node.childNodes.length; i++) {
-     console.log(node, node.childNodes[i]);
-     var currentNodeName = node.childNodes[i].tagName.toLowerCase();
+    function explore(node) {
+      for (var i = 0; i < node.childNodes.length; i++) {
+        var child = node.childNodes[i];
+        if (child.nodeType == document.ELEMENT_NODE) {
+          if (child.nodeName == tagName)
+            found.push(child);
+          explore(child);
+        }
+      }
+    }
 
-     if (currentNodeName === tagName) {
-       tags.push(node.childNodes[i]);
-
-       if(node[i].childNodes.length > 0) {
-         tags.concat(byTagName(node.childNodes[i], node.childNodes[i].tagName.toLowerCase()));
-       }
-     }
-   }
-
-   return tags;
+    explore(node);
+    return found;
   }
 
   console.log(byTagName(document.body, "h1").length);

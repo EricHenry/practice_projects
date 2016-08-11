@@ -35,6 +35,11 @@
           var cellEntry = document.createElement('td');
           cellEntry.textContent = dataEntry[field];
 
+          //add styles to numbers
+          if (typeof dataEntry[field] === 'number') {
+            cellEntry.style.textAlign = 'right';
+          }
+
           tableRow.appendChild(cellEntry);
       });
 
