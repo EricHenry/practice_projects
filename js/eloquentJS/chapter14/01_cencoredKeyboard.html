@@ -1,0 +1,24 @@
+<!doctype html>
+
+<input type="text">
+<script>
+  var field = document.querySelector("input");
+  // Your code here.
+  //q = 113, Q = 81
+  //w = 119, W = 87
+  //x = 120, X = 88
+  field.addEventListener("keypress", function(event) {
+    if (event.keyCode === 81 || event.keyCode === 87 || event.keyCode === 88 ||
+        event.keyCode === 113 || event.keyCode === 119 || event.keyCode === 120) {
+    	event.preventDefault();
+    }
+  });
+
+  // solution provided (much simpler)
+  // field.addEventListener("keydown", function(event) {
+  //   if (event.keyCode == "Q".charCodeAt(0) ||
+  //       event.keyCode == "W".charCodeAt(0) ||
+  //       event.keyCode == "X".charCodeAt(0))
+  //     event.preventDefault();
+  // });
+</script>

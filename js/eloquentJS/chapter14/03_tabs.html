@@ -1,0 +1,86 @@
+<!doctype html>
+
+
+<div id="wrapper">
+  <div data-tabname="one">Tab one</div>
+  <div data-tabname="two">Tab two</div>
+  <div data-tabname="three">Tab three</div>
+</div>
+<style>
+  .show {
+    display = initial;
+  }
+  .hide {
+    display = none;
+  }
+</style>
+<script>
+  function asTabs(node) {
+    // Your code here.
+    var tabButtonContainer = document.createElement('div');
+
+    function hideTabsContent(node) {
+      for (var i = 0; i < node.children.length; i++) {
+        node.children[i].style.display = 'none';
+      }
+    }
+
+    //initialte
+    for (var i = 0; i < node.childNodes.length; i++) {
+      if (node.childNodes[i].nodeType == document.ELEMENT_NODE) {
+      	(function() {
+        	var tabButton = document.createElement('button');
+      		var tabButtonName = node.childNodes[i].getAttribute('data-tabname');
+
+      		tabButton.textContent = tabButtonName;
+
+      		tabButton.addEventListener('click', function() {
+        		hideTabsContent(node);
+        		var thisTab = document.querySelector('div[data-tabname="' + tabButtonName + '"]');
+        		thisTab.style.display = 'initial';
+      		});
+      		tabButtonContainer.appendChild(tabButton);
+      	})();
+      }
+    }
+
+    node.parentNode.insertBefore(tabButtonContainer, node);
+
+  }
+  asTabs(document.querySelector("#wrapper"));
+
+  /* Their better implementation
+  function asTabs(node) {
+    var tabs = [];
+    for (var i = 0; i < node.childNodes.length; i++) {
+      var child = node.childNodes[i];
+      if (child.nodeType == document.ELEMENT_NODE)
+        tabs.push(child);
+    }
+
+    var tabList = document.createElement("div");
+    tabs.forEach(function(tab, i) {
+      var button = document.createElement("button");
+      button.textContent = tab.getAttribute("data-tabname");
+      button.addEventListener("click", function() { selectTab(i); });
+      tabList.appendChild(button);
+    });
+    node.insertBefore(tabList, node.firstChild);
+
+    function selectTab(n) {
+      tabs.forEach(function(tab, i) {
+        if (i == n)
+          tab.style.display = "";
+        else
+          tab.style.display = "none";
+      });
+      for (var i = 0; i < tabList.childNodes.length; i++) {
+        if (i == n)
+          tabList.childNodes[i].style.background = "violet";
+        else
+          tabList.childNodes[i].style.background = "";
+      }
+    }
+    selectTab(0);
+  }*/
+</script>
